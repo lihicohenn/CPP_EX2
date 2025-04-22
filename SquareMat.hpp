@@ -7,6 +7,7 @@ namespace matrix {
     private:
         int n;
         double** sqrmat;
+        double sum() const; // is private because it is not part of the API
 
     public:
         SquareMat(int size);
@@ -25,13 +26,29 @@ namespace matrix {
         SquareMat operator*(double scalar) const;
         friend SquareMat operator*(double scalar, const SquareMat& mat);
         SquareMat operator% (const SquareMat& other) const;
-        SquareMat operator% (int mod) const;
+        SquareMat operator% (double mod) const;
         SquareMat operator/(double scalar) const;
         SquareMat operator^(int pow) const;
         SquareMat operator++(); //prefix
         SquareMat operator--(); // prefix
         SquareMat operator++(int);  // postfix
         SquareMat operator--(int);  // postfix
+        SquareMat operator~();
+        bool operator==(const SquareMat& other) const;
+        bool operator!=(const SquareMat& other) const;
+        bool operator<(const SquareMat& other) const;
+        bool operator<=(const SquareMat& other) const;
+        bool operator>(const SquareMat& other) const;
+        bool operator>=(const SquareMat& other) const;
+        double operator!() const;
+        SquareMat& operator+=(const SquareMat& other);
+        SquareMat& operator-=(const SquareMat& other);
+        SquareMat& operator*=(double scalar);
+        SquareMat& operator*=(const SquareMat& other);
+        SquareMat& operator/=(const SquareMat& other);
+        SquareMat& operator%=(double scalar);
+        SquareMat& operator%=(const SquareMat& other);
+        friend std::ostream &operator<<(std::ostream &os, const SquareMat &mat);
 
        };
 
