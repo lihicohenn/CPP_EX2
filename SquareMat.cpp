@@ -1,10 +1,11 @@
+//lihicohen1123@gmail.com
 #include "SquareMat.hpp"
 #include <stdexcept>
 #include <cmath>
 
 namespace matrix
 {
-
+    // constructor
     SquareMat::SquareMat(int size)
     {
         if (size <= 0)
@@ -12,8 +13,8 @@ namespace matrix
             throw std::invalid_argument("size of matrix must be positive");
         }
 
-        n = size;
-        sqrmat = new double *[n];
+        n = size; 
+        sqrmat = new double *[n]; 
 
         for (int i = 0; i < n; ++i)
         {
@@ -21,11 +22,12 @@ namespace matrix
         }
     }
 
+    // copy constructor
     SquareMat::SquareMat(const SquareMat &other)
     {
         copy_other(other);
     }
-
+    // assignment operator
     SquareMat& SquareMat::operator=(const SquareMat &other)
     {
         if (this != &other)
@@ -40,7 +42,7 @@ namespace matrix
         }
         return *this;
     }
-
+    // copy the other matrix
     void SquareMat::copy_other(const SquareMat &other)
     {
         n = other.n;
@@ -55,6 +57,7 @@ namespace matrix
         }
     }
 
+    // destructor
     SquareMat::~SquareMat()
     {
         for (int i = 0; i < n; ++i)
@@ -69,6 +72,7 @@ namespace matrix
         return n;
     }
 
+    // add two matrixes
     SquareMat SquareMat::operator+(const SquareMat &other) const
     {
         if (n != other.n)
@@ -87,7 +91,7 @@ namespace matrix
 
         return ans;
     }
-
+    // enable to use the [] operator- access the matrix
     double* SquareMat::operator[](int index)
     {
         if (index < 0 || index >= n)
@@ -97,6 +101,7 @@ namespace matrix
         return sqrmat[index];
     }
 
+    // enable to use the [] operator- can change elements of the matrix
     const double* SquareMat::operator[](int index) const
     {
         if (index < 0 || index >= n)
@@ -106,6 +111,7 @@ namespace matrix
         return sqrmat[index];
     }
 
+    // subtract two matrixes
     SquareMat SquareMat::operator-(const SquareMat &other) const
     {
         if (n != other.n)
@@ -118,12 +124,13 @@ namespace matrix
         {
             for (int j = 0; j < n; j++)
             {
-                ans.sqrmat[i][j] = (*this)[i][j] - other.sqrmat[i][j];
+                ans.sqrmat[i][j] = (*this)[i][j] - other.sqrmat[i][j]; // insert the result in the new matrix
             }
         }
         return ans;
     }
 
+    // negation
     SquareMat SquareMat::operator-() const
     {
         SquareMat ans(n);
@@ -131,12 +138,13 @@ namespace matrix
         {
             for (int j = 0; j < n; ++j)
             {
-                ans[i][j] = -sqrmat[i][j];
+                ans[i][j] = -sqrmat[i][j]; // insert the result in the new matrix
             }
         }
         return ans;
     }
 
+    // multiplication of two matrixes
     SquareMat SquareMat::operator*(const SquareMat &other) const
     {
         if (n != other.n)
@@ -149,10 +157,10 @@ namespace matrix
         {
             for (int j = 0; j < n; j++)
             {
-                ans[i][j] = 0;
+                ans[i][j] = 0; // initialize the result to sero to prevent garbage values
                 for (int k = 0; k < n; k++)
                 {
-                    ans[i][j] += (*this)[i][k] * other[k][j];
+                    ans[i][j] += (*this)[i][k] * other[k][j]; // multiply the elements
                 }
             }
         }
@@ -160,17 +168,19 @@ namespace matrix
         return ans;
     }
 
+    // multiplication of matrix by scalar
     SquareMat SquareMat::operator*(double scalar) const
     {
         SquareMat result(n);
         for (int i = 0; i < n; ++i){
             for (int j = 0; j < n; ++j){
-                result.sqrmat[i][j] = this->sqrmat[i][j] * scalar;
+                result.sqrmat[i][j] = this->sqrmat[i][j] * scalar; //insert the result in the new matrix
             }}
 
         return result;
     }
-
+    // multiplication of scalar by matrix
+    // this is a friend function because it is not a member of the class
     SquareMat operator*(double scalar, const SquareMat &mat)
     {
         SquareMat result(mat.n);
@@ -178,13 +188,14 @@ namespace matrix
         {
             for (int j = 0; j < mat.n; ++j)
             {
-                result.sqrmat[i][j] = scalar * mat.sqrmat[i][j];
+                result.sqrmat[i][j] = scalar * mat.sqrmat[i][j]; // insert the result in the new matrix
             }
         }
 
         return result;
     }
 
+    // multiplication of two matrixes - element by element
     SquareMat SquareMat::operator%(const SquareMat &other) const
     {
         if (n != other.n)
@@ -196,12 +207,13 @@ namespace matrix
         {
             for (int j = 0; j < n; j++)
             {
-                ans[i][j] = (*this)[i][j] * other.sqrmat[i][j];
+                ans[i][j] = (*this)[i][j] * other.sqrmat[i][j]; // mul elemnt by elemnt
             }
         }
         return ans;
     }
 
+    // Modulo by scalar
     SquareMat SquareMat::operator%(double mod) const
     {
         if (mod == 0) {
@@ -212,12 +224,13 @@ namespace matrix
         {
             for (int j = 0; j < n; j++)
             {
-                ans[i][j] = fmod((*this)[i][j], mod);
+                ans[i][j] = fmod((*this)[i][j], mod); //fmod is used to get the remainder of the division- function of <cmath>
             }
         }
         return ans;
     }
 
+    // division of matrix by scalar
     SquareMat SquareMat::operator/(double scalar) const
     {
         if (scalar == 0)
@@ -235,6 +248,7 @@ namespace matrix
         return ans;
     }
 
+    // power of matrix
     SquareMat SquareMat::operator^(int pow) const
     {
         if (pow < 0)
@@ -315,6 +329,7 @@ namespace matrix
         return temp; // returning the origin value
     }
 
+    // transpose
     SquareMat SquareMat::operator~()
     {
         SquareMat ans(n);
@@ -322,12 +337,14 @@ namespace matrix
         {
             for (int j = 0; j < n; j++)
             {
-                ans[i][j] = (*this)[j][i];
+                ans[i][j] = (*this)[j][i]; // transpose the matrix- the cross stay the same and [i][]] = [j][i]
             }
         }
         return ans;
     }
 
+    // sum of all elements in the matrix help function for the comparison operators
+    // this function is private because it is not part of the API
     double SquareMat::sum() const
     {
         double total = 0.0;
@@ -341,6 +358,8 @@ namespace matrix
         return total;
     }
 
+    // comparison operators
+    // all the comparison operators are based on the sum of the elements in the matrix
     bool SquareMat::operator==(const SquareMat &other) const
     {
         return this->sum() == other.sum();
@@ -371,15 +390,16 @@ namespace matrix
         return this->sum() >= other.sum();
     }
 
+    // determinant of the matrix
     double SquareMat::operator!() const
     {
         if (n == 1)
         {
-            return (*this)[0][0];
+            return (*this)[0][0]; // determinant of 1x1 matrix is the only element
         }
         if (n == 2)
         {
-            return (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0];
+            return (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0]; // determinant of 2x2 matrix is ad-bc
         }
         double det = 0;
         for (int j = 0; j < n; ++j)
@@ -405,7 +425,10 @@ namespace matrix
 
         return det;
     }
-
+    // +=, -=, *=, /=, %= operators
+    // += operator
+    // this operator is used to add two matrixes
+    // the result is stored in the first matrix
     SquareMat& SquareMat::operator+=(const SquareMat& other) {
         if (n != other.n){
             throw std::invalid_argument("matrixes must be in the same size");
@@ -418,7 +441,9 @@ namespace matrix
         return *this;
     }
 
-
+    // -= operator
+    // this operator is used to subtract two matrixes
+    // the result is stored in the first matrix
     SquareMat& SquareMat::operator-=(const SquareMat& other) {
         if (n != other.n){
             throw std::invalid_argument("matrixes must be in the same size");
@@ -430,6 +455,8 @@ namespace matrix
         }
         return *this;
     }
+    // /= operator
+    // this operator is used to divide two matrixes
     SquareMat& SquareMat::operator/=(const SquareMat& other) {
         if (n != other.n){
             throw std::invalid_argument("matrixes must be in the same size");
@@ -444,6 +471,8 @@ namespace matrix
         return *this;
     }
 
+    // *= operator
+    // this operator is used to multiply matrix and scalar
     SquareMat& SquareMat::operator*=(double scalar) {
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < n; ++j) {
@@ -453,7 +482,8 @@ namespace matrix
         return *this;
     }
 
-
+    // *= operator
+    // this operator is used to multiply two matrixes
     SquareMat& SquareMat::operator*=(const SquareMat& other) {
         if (n != other.n) {
             throw std::invalid_argument("matrixes must be in the same size");
@@ -471,7 +501,10 @@ namespace matrix
         *this = result;
         return *this;
     }
-    
+
+    // %= operator
+    // this operator is used to modulo two matrixes
+    // the result is stored in the first matrix
     SquareMat& SquareMat::operator%=(const SquareMat& other) {
         if (n != other.n) {
             throw std::invalid_argument("Matrix sizes must match for %= operator");
@@ -486,6 +519,9 @@ namespace matrix
         return *this;
     }
 
+    // %= operator
+    // this operator is used to modulo matrix by scalar
+    // the result is stored in the first matrix
     SquareMat& SquareMat::operator%=(double scalar) {
         if (scalar == 0) {
             throw std::invalid_argument("Modulo by zero is not allowed");
@@ -503,7 +539,7 @@ namespace matrix
 
     
 
-    // friend func
+    // friend func to print the matrix
     std::ostream &operator<<(std::ostream &os, const SquareMat &mat)
     {
         for (int i = 0; i < mat.n; ++i)

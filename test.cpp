@@ -1,3 +1,4 @@
+//lihicohen1123@gmail.com
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "SquareMat.hpp"
@@ -184,48 +185,65 @@ TEST_CASE("Operator-- postfix"){
 
 }
 
+TEST_CASE("Operator~"){
+    SquareMat matrix(2);
+    matrix[0][0] = 1; matrix[0][1] = 2; matrix[1][0] = 3; matrix[1][1] = 4;
+    SquareMat ans = ~matrix;
+    CHECK(ans[1][1] == 4);
+    CHECK(ans[1][0] == 2);
+}
 
-// TEST_CASE("Comparison Operators") {
-//     SquareMat m1(2), m2(2);
-//     m1[0][0] = 1; m1[0][1] = 2; m1[1][0] = 3; m1[1][1] = 4;
-//     m2[0][0] = 4; m2[0][1] = 3; m2[1][0] = 2; m2[1][1] = 1;
+TEST_CASE("Operators < > <= >="){
+    SquareMat matrix1(2); 
+    SquareMat matrix2(2);
+    matrix1[0][0] = 1;matrix1[0][1] = 2; matrix1[1][0] = 3; matrix1[1][1] = 4;
+    matrix2[0][0] = 1;matrix2[0][1] = 2; matrix2[1][0] = 3; matrix2[1][1] = 4;
 
-//     CHECK(m1 == m2);
-//     m2[1][1] += 1;
-//     CHECK(m1 != m2);
-//     CHECK(m1 < m2);
-//     CHECK(m2 > m1);
-//     CHECK(m1 <= m2);
-//     CHECK(m2 >= m1);
-// }
 
-// TEST_CASE("Determinant Operator") {
-//     SquareMat m(3);
-//     m[0][0] = 6; m[0][1] = 1; m[0][2] = 1;
-//     m[1][0] = 4; m[1][1] = -2; m[1][2] = 5;
-//     m[2][0] = 2; m[2][1] = 8; m[2][2] = 7;
+    CHECK(matrix1 == matrix2);
+    matrix1[0][1] = 3;
+    CHECK(matrix1 != matrix2);
+    CHECK(matrix1 > matrix2);
+    CHECK(matrix2 < matrix1);
+    CHECK(matrix1 >= matrix2);
+    CHECK(matrix2 <= matrix1);
+}
+   
 
-//     double det = !m;
-//     CHECK(det == doctest::Approx(-306));
-// }
+TEST_CASE("Operator!"){
+    SquareMat matrix(3);
 
-// TEST_CASE("Assignment Operators") {
-//     SquareMat m1(2), m2(2);
-//     m1[0][0] = 1; m1[0][1] = 1; m1[1][0] = 1; m1[1][1] = 1;
-//     m2[0][0] = 2; m2[0][1] = 2; m2[1][0] = 2; m2[1][1] = 2;
+    matrix[0][0] = 6;matrix[0][1] = 1; matrix[0][2] = 1;
+    matrix[1][0] = 4; matrix[1][1] = -2; matrix[1][2] = 5;
+    matrix[2][0] = 2; matrix[2][1] = 8; matrix[2][2] = 7;
 
-//     m1 += m2;
-//     CHECK(m1[0][0] == 3);
+    double det = !matrix;
+    CHECK (det == -306.0);
+}
 
-//     m1 -= m2;
-//     CHECK(m1[0][0] == 1);
+TEST_CASE("Operators += *= %= /=") {
+    SquareMat matrix1(2), matrix2(2);
 
-//     m1 *= m2;
-//     CHECK(m1[0][0] == 4);
+    matrix1[0][0] = 1; matrix1[0][1] = 1;
+    matrix1[1][0] = 1; matrix1[1][1] = 1;
 
-//     m1 /= m2;
-//     CHECK(m1[0][0] == 2);
+    matrix2[0][0] = 2; matrix2[0][1] = 2;
+    matrix2[1][0] = 2; matrix2[1][1] = 2;
 
-//     m1 %= 3;
-//     CHECK(m1[0][0] == doctest::Approx(fmod(2,3)));
-// }
+    matrix1 += matrix2;
+    CHECK(matrix1[0][0] == 3);
+
+    matrix1 -= matrix2;
+    CHECK(matrix1[0][0] == 1);
+
+    matrix1 *= matrix2;
+    CHECK(matrix1[0][0] == 4);
+
+    matrix1 /= matrix2;
+    CHECK(matrix1[0][0] == 2);
+
+    matrix1 %= 3;
+    CHECK(matrix1[0][0] == 2);  // 2 % 3 == 2
+}
+
+   
