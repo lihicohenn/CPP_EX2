@@ -29,9 +29,9 @@ namespace matrix {
         SquareMat operator% (double mod) const;
         SquareMat operator/(double scalar) const;
         SquareMat operator^(int pow) const;
-        SquareMat operator++(); //prefix
-        SquareMat operator--(); // prefix
-        SquareMat operator++(int);  // postfix
+        SquareMat& operator++(); //prefix
+        SquareMat operator++(int);
+        SquareMat& operator--();
         SquareMat operator--(int);  // postfix
         SquareMat operator~();
         bool operator==(const SquareMat& other) const;

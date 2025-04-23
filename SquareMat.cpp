@@ -9,7 +9,7 @@ namespace matrix
     {
         if (size <= 0)
         {
-            throw std::invalid_argument("size must be positive");
+            throw std::invalid_argument("size of matrix must be positive");
         }
 
         n = size;
@@ -26,7 +26,7 @@ namespace matrix
         copy_other(other);
     }
 
-    SquareMat &SquareMat::operator=(const SquareMat &other)
+    SquareMat& SquareMat::operator=(const SquareMat &other)
     {
         if (this != &other)
         {
@@ -88,7 +88,7 @@ namespace matrix
         return ans;
     }
 
-    double *SquareMat::operator[](int index)
+    double* SquareMat::operator[](int index)
     {
         if (index < 0 || index >= n)
         {
@@ -97,7 +97,7 @@ namespace matrix
         return sqrmat[index];
     }
 
-    const double *SquareMat::operator[](int index) const
+    const double* SquareMat::operator[](int index) const
     {
         if (index < 0 || index >= n)
         {
@@ -163,9 +163,11 @@ namespace matrix
     SquareMat SquareMat::operator*(double scalar) const
     {
         SquareMat result(n);
-        for (int i = 0; i < n; ++i)
-            for (int j = 0; j < n; ++j)
+        for (int i = 0; i < n; ++i){
+            for (int j = 0; j < n; ++j){
                 result.sqrmat[i][j] = this->sqrmat[i][j] * scalar;
+            }}
+
         return result;
     }
 
@@ -202,6 +204,9 @@ namespace matrix
 
     SquareMat SquareMat::operator%(double mod) const
     {
+        if (mod == 0) {
+            throw std::invalid_argument("Modulo by zero is not allowed");
+        }
         SquareMat ans(n);
         for (int i = 0; i < n; i++)
         {
@@ -262,31 +267,13 @@ namespace matrix
     }
 
     // prefix
-    SquareMat SquareMat::operator++()
-    {
-        SquareMat ans(n);
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                ans[i][j] = (*this)[i][j] + 1;
+    SquareMat& SquareMat::operator++() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                sqrmat[i][j] += 1;
             }
         }
-        return ans;
-    }
-
-    // prefix
-    SquareMat SquareMat::operator--()
-    {
-        SquareMat ans(n);
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                ans[i][j] = (*this)[i][j] - 1;
-            }
-        }
-        return ans;
+        return *this;
     }
 
     // postfix
@@ -302,6 +289,17 @@ namespace matrix
         }
         return temp; // returning the origin value
     }
+
+    // prefix
+    SquareMat& SquareMat::operator--() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                sqrmat[i][j] -= 1;
+            }
+        }
+        return *this;
+    }
+    
 
     // postfix
     SquareMat SquareMat::operator--(int)
