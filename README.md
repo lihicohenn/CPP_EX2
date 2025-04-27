@@ -10,7 +10,7 @@ to compile the project and run the tests:
 make test
 ./Test
 
-to clean the objects files:
+* to clean the objects files:
 make clean
 
 to run memory leak analysis:
