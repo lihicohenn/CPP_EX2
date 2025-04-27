@@ -1,36 +1,46 @@
 //lihicohen1123@gmail.com
 
-Assignment 2 - Operation Loading in c++
+# Assignment 2 – Operation Loading in C++
 
-Run Example:
+###  Compile and Run Main
+```bash
 make
 ./Main
+```
 
-to compile the project and run the tests:
+### Compile and Run Tests
+```bash
 make test
 ./Test
+```
 
-to clean the objects files:
+###  Clean Object Files
+```bash
 make clean
+```
 
-to run memory leak analysis:
-for main:make valgrind_main
-for test:make valgrind_test
+###  Memory Leak Analysis with Valgrind
+```bash
+make valgrind_main   # For main
+make valgrind_test   # For test
+```
 
-Project strcture:
 
+## Project Structure
+
+```
 ├── CCP_files/          
 │   ├── main.cpp
 │   ├── SquareMat.cpp
-|   └── test.cpp
+│   └── test.cpp
 ├── HPP_files/        
 │   ├── doctest.h
 │   ├── SquareMat.hpp
-|   └── Row.hpp
+│   └── Row.hpp
 ├── Makefile       
 └── README.md
-
-General Explanation of the Code:
+```
+##  General Explanation of the Code:
 
 This project focuses on implementing a custom matrix class SquareMat in C++, using operator overloading. The class SquareMat represents square matrixes and supports a set of functionalities detailed below:
 
@@ -75,7 +85,8 @@ Stream Output:
 I also added a class named: Row
 I chose to add that class to solve the problem of creating elements in the matrix (with operator []) that the row is out of bounds (else i needed to return pointer to double and it was difficult to control this problem)
 
-Testing: 
+
+## Testing: 
 
 Automated testing is implemented using the doctest framework in test.cpp. The tests cover:
 
