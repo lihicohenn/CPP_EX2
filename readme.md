@@ -17,16 +17,18 @@ to run memory leak analysis:
 for main:make valgrind_main
 for test:make valgrind_test
 
-Project stracture:
+Project strcture:
+
 ├── CCP_files/          
 │   ├── main.cpp
 │   ├── SquareMat.cpp
-|   ├── test.cpp
+|   └── test.cpp
 ├── HPP_files/        
 │   ├── doctest.h
 │   ├── SquareMat.hpp
+|   └── Row.hpp
 ├── Makefile       
-└── README.md 
+└── README.md
 
 General Explanation of the Code:
 
