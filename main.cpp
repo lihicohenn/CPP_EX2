@@ -1,6 +1,7 @@
 //lihicohen1123@gmail.com
 #include <iostream>
 #include "SquareMat.hpp"
+#include "Row.hpp"
 
 using namespace matrix;
 

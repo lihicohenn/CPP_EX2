@@ -8,6 +8,7 @@ TEST_CASE("Constructor") {
 
     CHECK_THROWS(SquareMat(0));
     CHECK_THROWS(SquareMat(-5));
+    CHECK_THROWS(SquareMat(101));
 
     SquareMat matrix(4);
     CHECK(matrix.getSize() == 4);
@@ -16,6 +17,7 @@ TEST_CASE("Constructor") {
     CHECK_NOTHROW(matrix[2][0] = 5);
     CHECK_THROWS(matrix[4][1] = 2);
     CHECK_THROWS(matrix[-1][0] = 1);
+    CHECK_THROWS(matrix[2][15] = 1);
 }
 
 TEST_CASE("Operator +/-") {

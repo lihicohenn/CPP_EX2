@@ -30,32 +30,33 @@ Project stracture:
 
 General Explanation of the Code:
 
-This project focuses on implementing a custom matrix class SquareMat in C++, using operator overloading. The class represents square matrixes and supports a set of functionalities detailed below:
+This project focuses on implementing a custom matrix class SquareMat in C++, using operator overloading. The class SquareMat represents square matrixes and supports a set of functionalities detailed below:
 
  Arithmetic Operations:
-+ – Adds two matrices element-wise.
 
-- – Subtracts two matrices element-wise.
+operator + – Adds two matrices element-wise.
 
-* – Matrix multiplication: each element is computed by the dot product of row and column.
+operator - - Subtracts two matrices element-wise.
 
-/ – Divides each element of the matrix by a scalar or another matrix (element-wise division).
+operator * – Matrix multiplication: each element is computed by the dot product of row and column.
 
-% – Applies modulus operation either element-wise (matrix % matrix) or by a scalar using fmod.
+operator / – Divides each element of the matrix by a scalar or another matrix (element-wise division).
+
+operator % – Applies modulus operation either element-wise (matrix % matrix) or by a scalar using fmod.
 
 All these operations check size compatibility (i.e., same dimension) and throw exceptions for invalid inputs.
 
-Unary - – Negates all values in the matrix.
+operator unary - – Negates all values in the matrix.
 
-Prefix/Postfix ++ – Increments every element in the matrix by 1.
+operator prefix/postfix ++ – Increments every element in the matrix by 1.
 
-Prefix/Postfix -- – Decrements every element in the matrix by 1.
+operator prefix/postfix -- – Decrements every element in the matrix by 1.
 
-~ – Transposes the matrix (swaps rows and columns).
+operator ~ – Transposes the matrix (swaps rows and columns).
 
-! – Computes the determinant of the matrix using recursive minor expansion.
+operator ! – Computes the determinant of the matrix using recursive minor expansion.
 
-Comparison Operators:
+operator comparison operators:
 ==, !=, <, <=, >, >=
 
 These operators do not compare individual elements directly, but instead compare the sum of all matrix elements, as defined in the assignment. Two matrices are considered equal if their total sums are equal.
@@ -69,6 +70,8 @@ Compound Assignment Operators:
 Stream Output:
 << – Overloaded as a friend function to print the matrix in a formatted, readable way and to acsess the matrix fields
 
+I also added a class named: Row
+I chose to add that class to solve the problem of creating elements in the matrix (with operator []) that the row is out of bounds (else i needed to return pointer to double and it was difficult to control this problem)
 
 Testing: 
 

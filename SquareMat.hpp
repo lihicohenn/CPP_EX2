@@ -1,7 +1,7 @@
 // lihicohen1123@gmail.com
 #pragma once
 #include <iostream>
-
+#include "Row.hpp"
 namespace matrix {
 
     class SquareMat {
@@ -20,8 +20,8 @@ namespace matrix {
 
         SquareMat operator+(const SquareMat& other) const;
         SquareMat operator-(const SquareMat& other) const;
-        double* operator[](int index);
-        const double* operator[](int index) const;
+        Row operator[](int index) const; // enable to use the [] operator- access the matrix
+        // const double* operator[](int index) const;
         SquareMat operator-() const;
         SquareMat operator*(const SquareMat& other) const;
         SquareMat operator*(double scalar) const;

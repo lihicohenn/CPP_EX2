@@ -2,6 +2,7 @@
 #include "SquareMat.hpp"
 #include <stdexcept>
 #include <cmath>
+#include "Row.hpp"
 
 namespace matrix
 {
@@ -11,6 +12,10 @@ namespace matrix
         if (size <= 0)
         {
             throw std::invalid_argument("size of matrix must be positive");
+        }
+        if (size > 100)
+        {
+            throw std::invalid_argument("size of matrix must be less than 100");
         }
 
         n = size; 
@@ -92,24 +97,30 @@ namespace matrix
         return ans;
     }
     // enable to use the [] operator- access the matrix
-    double* SquareMat::operator[](int index)
+    Row SquareMat::operator[](int index) const
     {
+        if (n <= 0)
+        {
+            throw std::invalid_argument("size of matrix must be positive");
+        }
         if (index < 0 || index >= n)
         {
             throw std::out_of_range("Index out of bounds");
         }
-        return sqrmat[index];
+        return Row(sqrmat[index], n);
     }
 
-    // enable to use the [] operator- can change elements of the matrix
-    const double* SquareMat::operator[](int index) const
-    {
-        if (index < 0 || index >= n)
-        {
-            throw std::out_of_range("Index out of bounds");
-        }
-        return sqrmat[index];
-    }
+    // // enable to use the [] operator- can change elements of the matrix
+    // const double* SquareMat::operator[](int index) const
+    // {
+    //     if (index < 0 || index >= n)
+    //     {
+    //         throw std::out_of_range("Index out of bounds");
+    //     }
+    //     return sqrmat[index];
+    // }
+
+   
 
     // subtract two matrixes
     SquareMat SquareMat::operator-(const SquareMat &other) const
